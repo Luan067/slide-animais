@@ -21,8 +21,11 @@ export default class Slide {
       moveType = "touchmove";
       this.dist.startX = event.changedTouches[0].clientX;
     }
-    this.container.addEventListener(moveType, this.onMove);
     this.transition(false);
+
+    requestAnimationFrame(() => {
+      this.container.addEventListener(moveType, this.onMove);
+    });
   }
 
   onMove(event) {
@@ -111,10 +114,8 @@ export default class Slide {
   }
 
   onResize() {
-    setTimeout(() => {
-      this.slidesConfig();
-      this.changeSlide(this.index.active);
-    }, 1000);
+    this.slidesConfig();
+    this.changeSlide(this.index.active);
   }
 
   addResizeEvent() {
@@ -132,6 +133,7 @@ export default class Slide {
     this.bindEvents();
     this.transition(true);
     this.slidesConfig();
+    this.changeSlide(0);
     this.addSlideEvents();
     this.addResizeEvent();
     return this;
