@@ -1,5 +1,5 @@
 import debounce from "./debounce.js";
-export default class Slide {
+export class Slide {
   constructor(slide, container) {
     this.slide = document.querySelector(slide);
     this.container = document.querySelector(container);
@@ -33,7 +33,7 @@ export default class Slide {
   }
   
   updatePosition(clientX) {
-    this.dist.movement = this.dist.startX - clientX;
+    this.dist.movement = (this.dist.startX - clientX) * 1.6;
     return this.dist.finalPos - this.dist.movement;
   }
   
@@ -133,7 +133,7 @@ export default class Slide {
     return this;
   }
 }
-export class SlideNav extends Slide {
+export default class SlideNav extends Slide {
   constructor(slide, container) {
     super(slide, container);
     this.bindControlEvents();
